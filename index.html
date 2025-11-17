@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLASS VII - V - Jadwal Piket & Roster</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Font lucu seperti tulisan tangan */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #e6f7ff 0%, #cce7ff 25%, #ffffff 50%, #b3d9ff 75%, #e6f7ff 100%); /* Gradien biru-putih yang lebih kompleks */
+            background-size: 400% 400%; /* Untuk animasi gerakan */
+            animation: gradientShift 15s ease infinite, pulse 5s ease-in-out infinite alternate; /* Animasi gradien dan denyut */
+            color: #003366; /* Biru sekolah */
+            position: relative;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+        
+        /* Pseudo-element untuk efek partikel, pola astronomi, nebula, dan bintang berkilau */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 204, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 51, 102, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="3" fill="%23ffcc00"/><circle cx="20" cy="20" r="2" fill="%23ffffff"/><circle cx="80" cy="30" r="1.5" fill="%23b3d9ff"/><text fill="%23003366" font-size="15" x="70" y="80">🌙</text><text fill="%23003366" font-size="10" x="10" y="70">🪐</text></svg>'), /* Pola astronomi: bintang, bulan, planet */
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="%23ffcc00" font-size="15" y="50%">⭐</text></svg>'), /* Bintang berkilau */
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="%23ffffff" font-size="10" x="30" y="30">✨</text><text fill="%23b3d9ff" font-size="8" x="60" y="60">🌟</text></svg>'); /* Tambahan bintang berkilau */
+            background-size: 200px 200px, 300px 300px, 150px 150px, 80px 80px, 40px 40px, 50px 50px;
+            background-position: 0% 0%, 100% 100%, 50% 50%, 10% 10%, 90% 90%, 50% 50%;
+            animation: floatParticles 20s ease-in-out infinite, rotateAstronomy 40s linear infinite, twinkleStars 3s ease-in-out infinite alternate; /* Animasi partikel, rotasi astronomi, twinkle bintang */
+            pointer-events: none; /* Tidak mengganggu klik */
+            z-index: -1; /* Di belakang konten */
+        }
+        
+        /* Pseudo-element kedua untuk efek nebula yang lebih kuat */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(ellipse at 10% 20%, rgba(173, 216, 230, 0.3) 0%, transparent 70%), /* Nebula biru */
+                radial-gradient(ellipse at 90% 80%, rgba(255, 20, 147, 0.3) 0%, transparent 70%), /* Nebula merah */
+                radial-gradient(ellipse at 50% 50%, rgba(75, 0, 130, 0.2) 0%, transparent 80%); /* Nebula ungu untuk kedalaman */
+            background-size: 300px 200px, 250px 150px, 400px 300px;
+            background-position: 0% 0%, 100% 100%, 50% 50%;
+            animation: cloudDrift 25s linear infinite, nebulaPulse 10s ease-in-out infinite alternate; /* Animasi nebula mengalir dan pulse */
+            pointer-events: none;
+            z-index: -2; /* Lebih di belakang */
+        }
+        
+        /* Keyframe untuk gradien yang bergerak */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Keyframe untuk denyut */
+        @keyframes pulse {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.1); }
+        }
+        
+        /* Keyframe untuk partikel mengambang */
+        @keyframes floatParticles {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-30px) rotate(180deg) scale(1.1); }
+            100% { transform: translateY(0px) rotate(360deg) scale(1); }
+        }
+        
+        /* Keyframe untuk rotasi astronomi */
+        @keyframes rotateAstronomy {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Keyframe untuk twinkle bintang */
+        @keyframes twinkleStars {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+        
+        /* Keyframe untuk awan/nebula mengalir */
+        @keyframes cloudDrift {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+        
+        /* Keyframe untuk pulse nebula */
+        @keyframes nebulaPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            animation: bounce 2s infinite; /* Animasi lonceng */
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 51, 102, 0.3);
+            animation: fadeIn 1s ease-in; /* Fade-in animasi */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .button-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #ffcc00;
+            color: #003366;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 10px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #ffb300;
+            transform: scale(1.05);
+        }
+        .section {
+            margin-bottom: 20px;
+            display: none; /* Semua section tersembunyi secara default */
+        }
+        .section.visible {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #003366;
+            border-bottom: 3px solid #ffcc00; /* Garis kuning seperti pensil */
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "📖"; /* Ikon buku */
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+        }
+        tr:hover {
+            background-color: #e6f7ff; /* Hover efek */
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #003366;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏫 CLASS VII - V 🔔</h1>
+        <p>Jadwal Piket & Roster Pemelajaran</p>
+    </header>
+    
+    <div class="container">
+        <div class="button-group">
+            <button onclick="toggleSection('struktur')">Tampilkan Struktur Kelas</button>
+            <button onclick="toggleSection('piket')">Tampilkan Jadwal Piket</button>
+            <button onclick="toggleSection('roster')">Tampilkan Roster Pemelajaran</button>
+        </div>
+        
+        <section id="struktur" class="section">
+            <h2>Struktur Kelas</h2>
+            <ul>
+                <li><strong>Ketua Kelas:</strong> Jihad Manaf 👑</li>
+                <li><strong>Wakil Ketua Kelas:</strong> Muhammad Khadafi 🤝</li>
+                <li><strong>Sekretaris:</strong> (Belum ditentukan) ✏️</li>
+                <li><strong>Bendahara:</strong> (Belum ditentukan) 💰</li>
+                <li><strong>Anggota:</strong> Siswa lainnya 🎓</li>
+            </ul>
+        </section>
+        
+        <section id="piket" class="section">
+            <h2>Jadwal Piket</h2>
+            <p>Jadwal piket telah diperbarui dengan kelompok siswa. Klik tombol di bawah untuk toggle tampilan!</p>
+            <button onclick="toggleSection('piketTable')">Tampilkan/Sembunyikan Jadwal Piket</button>
+            <table id="piketTable" class="hidden">
+                <tr>
+                    <th>Hari</th>
+                    <th>Kelompok/Tugas</th>
+                </tr>
+                <tr>
+                    <td>Senin</td>
+                    <td>
+                        <ul>
+                            <li>raudhatul</li>
+                            <li>afika</li>
+                            <li>zahira</li>
+                            <li>darnawan</li>
+                            <li>riski</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Selasa</td>
+                    <td>
+                        <ul>
+                            <li>jannah</li>
+                            <li>aurel</li>
+                            <li>aura</li>
+                            <li>nabil</li>
+                            <li>Alvaro</li>
+                            <li>azka</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rabu</td>
+                    <td>
+                        <ul>
+                            <li>salsa</li>
+                            <li>hera</li>
+                            <li>azahra</li>
+                            <li>khadafi</li>
+                            <li>fatih</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kamis</td>
+                    <td>
+                        <ul>
+                            <li>chapa</li>
+                            <li>magfira</li>
+                            <li>faras</li>
+                            <li>aufar</li>
+                            <li>rajab</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jumat</td>
+                    <td>
+                        <ul>
+                            <li>afifa</li>
+                            <li>farah</li>
+                            <li>jihat</li>
+                            <li>arif</li>
+                            <li>zikri</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sabtu</td>
+                    <td>
+                        <ul>
+                            <li>Silvia</li>
+                            <li>Zahara</li>
+                            <li>rasul</li>
+                            <li>Nizar</li>
+                            <li>fais</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        
+        <section id="roster" class="section">
+            <h2>Roster Pemelajaran</h2>
+            <button onclick="toggleSection('rosterTable')">Tampilkan/Sembunyikan Roster</button>
+            <table id="rosterTable" class="hidden">
+                <tr>
+                    <th>Waktu</th>
+                    <th>Senin</th>
+                    <th>Selasa</th>
+                    <th>Rabu</th>
+                    <th>Kamis</th>
+                    <th>Jumat</th>
+                    <th>Sabtu</th>
+                </tr>
+                <tr>
+                    <td>Jam 1</td>
+                    <td>Seni Musik 🎵</td>
+                    <td>Bahasa Indonesia 📝</td>
+                    <td>IPA 🧪</td>
+                    <td>Bahasa Indonesia 📝</td>
+                    <td>Pjok ⚽</td>
+                    <td>IPA 🧪</td>
+                </tr>
+                <tr>
+                    <td>Jam 2</td>
+                    <td>PAI 🙏</td>
+                    <td>TIK 💻</td>
+                    <td>MTK ➕</td>
+                    <td>Bahasa Inggris 🇺🇸</td>
+                    <td>IPS 🌍</td>
+                    <td>MTK ➕</td>
+                </tr>
+                <tr>
+                    <td>Jam 3</td>
+                    <td>Diniah 📿</td>
+                    <td>Bahasa Inggris 🇺🇸</td>
+                    <td>PP 🏛️</td>
+                    <td>IPS 🌍</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            <p><em>Catatan: PP diasumsikan sebagai Pendidikan Pancasila. Sesuaikan waktu dan tambahkan istirahat jika diperlukan. 🎒</em></p>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 CLASS VII - V. Dibuat dengan ❤️ untuk siswa!</p>
+    </footer>
+    
+    <script>
+        // Fungsi untuk toggle tampilan bagian utama
+        function toggleSection(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('visible');
+        }
+        
+        // Fungsi untuk toggle tabel dalam bagian (untuk piket dan roster)
+        function toggleSection(id) {
+            const element = document.getElementById(id);
+            if (element.classList.contains('section')) {
+                element.classList.toggle('visible');
+            } else {
+                element.classList.toggle('hidden');
+            }
+        }
+        
+        // Animasi lonceng saat load
+        window.onload = function() {
+            const header = document.querySelector('header h1');
+            header.style.animation = 'bounce 2s infinite';
+        };
+    </script>
+</body>
+</html>
